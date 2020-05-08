@@ -1,4 +1,9 @@
-#include <driver_motor.h>
+#include "driver_motor.h"
+
+int b1 = 12;
+int b2 = 10; //PWM PIN
+int a1 = 13;
+int a2 = 11; //PWM PIN
 
 void motor_setup(){
   pinMode(b1, OUTPUT);
@@ -61,6 +66,7 @@ void controlDirection(int d) {
         break;
      
   }
+}
 
 void motor_test(){
   controlDirection(1);
