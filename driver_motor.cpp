@@ -4,7 +4,7 @@ int b1 = 12;
 int b2 = A0;
 int a1 = 13;
 int a2 = A1;
-int enB = 10; //PWM
+int enB = 6; //PWM
 int enA = 11; //PWM
 int motor_speed_limit = 70;
 
