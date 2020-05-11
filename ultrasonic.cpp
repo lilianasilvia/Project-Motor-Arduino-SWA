@@ -1,34 +1,23 @@
+#include <NewPing.h>
+
 #include "ultrasonic.h"
 
-int echo = A3;
-int trig = A2;
-float speed_of_sound;
-float temp = 25;  //will be recived periodically by wemos (the pin measuring temperature will be on wemos)
-long time_ultrasound_return;
 
 
+int echo_trig = A2;
+
+int MAX_DISTANCE = 200;
+
+NewPing sonar(echo_trig, echo_trig, MAX_DISTANCE);
 
 void ultrasonic_setup() {
-  pinMode(trig, OUTPUT);
-  pinMode(echo, INPUT);
-  
+  pinMode(echo_trig, OUTPUT);
 }
 
-float measure_distance() {
-
-  trigger_pulse();
-  time_ultrasound_return = pulseIn(echo, HIGH);
+unsigned long measure_distance() {
   
-  speed_of_sound = (331.3 + 0.606*temp)/10000; //result in cm/us
+  unsigned long distance_to_obstacle;
+  distance_to_obstacle = sonar.ping_cm();
   
-  return ((time_ultrasound_return * speed_of_sound )/2.0); //result in cm
-}
-
-void trigger_pulse()
-{
-  digitalWrite(trig, LOW);
-  delayMicroseconds(2);
-  digitalWrite(trig, HIGH);
-  delayMicroseconds(10);
-  digitalWrite(trig, LOW);
+  return  distance_to_obstacle;
 }

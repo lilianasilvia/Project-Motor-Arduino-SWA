@@ -1,10 +1,10 @@
-#ifndef DRIVER_MOTOR_H
-#define DRIVER_MOTOR_H
+#ifndef ULTRASONIC_H
+#define ULTRASONIC_H
 
 #include <Arduino.h>
 
 void ultrasonic_setup();
-float measure_distance();
-void trigger_pulse();
+unsigned long measure_distance();
+
 
 #endif
