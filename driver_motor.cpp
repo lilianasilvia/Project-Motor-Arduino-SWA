@@ -7,6 +7,7 @@ int a2 = A1;
 int enB = 6; //PWM
 int enA = 11; //PWM
 int motor_speed_limit = 70;
+int correction_speed_wheel = 20;
 
 void motor_setup() {
   pinMode(b1, OUTPUT);
@@ -35,7 +36,7 @@ void controlDirection(int d) {
       digitalWrite(b1, LOW);
       digitalWrite(b2, HIGH);
       analogWrite(enA, motor_speed_limit);
-      analogWrite(enB, motor_speed_limit);
+      analogWrite(enB, motor_speed_limit+correction_speed_wheel);
       break;
 
     case 2:
@@ -45,7 +46,7 @@ void controlDirection(int d) {
       digitalWrite(b1, HIGH);
       digitalWrite(b2, LOW);
       analogWrite(enA, motor_speed_limit);
-      analogWrite(enB, motor_speed_limit);
+      analogWrite(enB, motor_speed_limit+correction_speed_wheel);
       break;
 
     case 3:
@@ -65,7 +66,7 @@ void controlDirection(int d) {
       digitalWrite(b1, HIGH);
       digitalWrite(b2, LOW);
       analogWrite(enA, motor_speed_limit);
-      analogWrite(enB, motor_speed_limit);
+      analogWrite(enB, motor_speed_limit+correction_speed_wheel);
       break;
 
     case 5:
@@ -74,7 +75,7 @@ void controlDirection(int d) {
       digitalWrite(a2, HIGH);
       digitalWrite(b1, LOW);
       digitalWrite(b2, HIGH);
-      analogWrite(enB, motor_speed_limit);
+      analogWrite(enB, motor_speed_limit+correction_speed_wheel);
       analogWrite(enA, 0);
       break;
 
@@ -85,7 +86,7 @@ void controlDirection(int d) {
       digitalWrite(b1, LOW);
       digitalWrite(b2, HIGH);
       analogWrite(enA, motor_speed_limit);
-      analogWrite(enB, motor_speed_limit);
+      analogWrite(enB, motor_speed_limit+correction_speed_wheel);
       break;
 
   }
