@@ -16,6 +16,7 @@ void IR_senzor_setup() {
   pinMode(s4, INPUT);
   pinMode(s5, INPUT);
   pinMode(near, INPUT);
+  motor_setup();
 }
 
 void line_follow() {
@@ -26,7 +27,7 @@ void line_follow() {
   int senzor5 = digitalRead(s5);
   int senzorNear = digitalRead(near);
 
-   if (senzorNear == 0)
+  if (senzorNear == 0)
   {
     if (senzor3 == 0 && senzor1 == 1 && senzor2 == 1 && senzor4 == 1 && senzor5 == 1)
     {
@@ -81,4 +82,3 @@ void line_follow() {
 
 
 }
-
