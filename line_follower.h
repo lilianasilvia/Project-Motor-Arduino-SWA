@@ -1,5 +1,5 @@
-#ifndef DRIVER_MOTOR_H
-#define DRIVER_MOTOR_H
+#ifndef LINE_FOLLOWER_H
+#define LINE_FOLLOWER_H
 
 #include <Arduino.h>
 
