@@ -6,7 +6,8 @@ Servo motor_servo;
 
 int right_direction = 25;
 int left_direction = 155;
-int IR_obstacle_sensor = A3;
+int IR_obstacle_sensor_1 = A6;
+int IR_obstacle_sensor_2 = A7;
 int IR_middle_sensor = 8; //IR sensor from line follower
 int straight = 85;
 int servoPin = 5;
@@ -15,7 +16,8 @@ unsigned long distance_to_obstacle, distance_right, distance_left;
 void obstacle_mode_setup() {
   motor_servo.attach(servoPin);
   Serial.begin(9600);
-  pinMode(IR_obstacle_sensor, INPUT);
+  pinMode(IR_obstacle_sensor_1, INPUT);
+   pinMode(IR_obstacle_sensor_2, INPUT);
   pinMode(IR_middle_sensor, INPUT);
   ultrasonic_setup();
   motor_setup();
@@ -30,7 +32,7 @@ void obstacle_avoid() {
 
   controlDirection(1); //go forward
 
-  while (digitalRead(IR_obstacle_sensor) == 1 && digitalRead(IR_middle_sensor) == 0); //while no obstacle
+  while (digitalRead(IR_obstacle_sensor_1) == 1 && digitalRead(IR_obstacle_sensor_2) == 1 && digitalRead(IR_middle_sensor) == 0); //while no obstacle
 
   controlDirection(2); //reverse
   delay(500);
