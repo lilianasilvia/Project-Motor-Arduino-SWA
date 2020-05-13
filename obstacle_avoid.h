@@ -3,6 +3,8 @@
 
 #include <Arduino.h>
 
+extern int graphic_code_OA;
+
 void obstacle_mode_setup();
 void obstacle_avoid();
 
