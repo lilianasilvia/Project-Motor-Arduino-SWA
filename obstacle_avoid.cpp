@@ -18,7 +18,7 @@ void obstacle_mode_setup() {
   motor_servo.attach(servoPin);
   Serial.begin(9600);
   pinMode(IR_obstacle_sensor_1, INPUT);
-   pinMode(IR_obstacle_sensor_2, INPUT);
+  pinMode(IR_obstacle_sensor_2, INPUT);
   pinMode(IR_middle_sensor, INPUT);
   ultrasonic_setup();
   motor_setup();
@@ -31,45 +31,52 @@ void obstacle_avoid() {
   distance_to_obstacle = measure_distance();
   Serial.println(distance_to_obstacle);
 
-  controlDirection(1); //go forward
-  graphic_code_OA = 20; // graphic forward arrow
 
-  while (digitalRead(IR_obstacle_sensor_1) == 1 && digitalRead(IR_obstacle_sensor_2) == 1 && digitalRead(IR_middle_sensor) == 0); //while no obstacle
 
-  controlDirection(2); //reverse
-  graphic_code_OA = 40; //graphic reverse arrow
-  delay(500);
-
-  controlDirection(0); //stop
-  graphic_code_OA = 70; //graphic obstacle arrow
-
-  motor_servo.write(right_direction);
-  delay(1000);
-  distance_right = measure_distance();
-
-  motor_servo.write(left_direction);
-  delay(1000);
-  distance_left = measure_distance();
-
-  motor_servo.write(straight); //come back to straight
-  delay(1000);
-
-  if (distance_right > distance_left)
+  if (analogRead(IR_obstacle_sensor_1) > 500 && analogRead(IR_obstacle_sensor_2) > 500 && digitalRead(IR_middle_sensor) == 0) //while no obstacle
   {
-    controlDirection(4); //tight right
-    graphic_code_OA = 30;
-    delay(500);
-    controlDirection(0); //stop
-    delay(1000);
+    controlDirection(1); //go forward
+    graphic_code_OA = 20; // graphic forward arrow
   }
-  else
+
+  else //obstacle detected
   {
-    controlDirection(6); //tight left
-    graphic_code_OA = 10;
+    controlDirection(2); //reverse
+    graphic_code_OA = 40; //graphic reverse arrow
     delay(500);
+
     controlDirection(0); //stop
+    graphic_code_OA = 70; //graphic obstacle arrow
+
+    motor_servo.write(right_direction);
     delay(1000);
+    distance_right = measure_distance();
+
+    motor_servo.write(left_direction);
+    delay(1000);
+    distance_left = measure_distance();
+
+    motor_servo.write(straight); //come back to straight
+    delay(1000);
+
+    if (distance_right > distance_left)
+    {
+      controlDirection(4); //tight right
+      graphic_code_OA = 30;
+      delay(500);
+      controlDirection(0); //stop
+      delay(1000);
+    }
+    else
+    {
+      controlDirection(6); //tight left
+      graphic_code_OA = 10;
+      delay(500);
+      controlDirection(0); //stop
+      delay(1000);
+    }
   }
+
 
 
 }

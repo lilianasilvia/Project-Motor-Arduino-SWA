@@ -23,27 +23,27 @@ void hand_follower() {
     graphic_code_HF = 50; //happy face graphic
     
   }
-  while (analogRead(IR_sensor_right) < 500 && analogRead(IR_sensor_left) > 500) // right side sees the hand and left side no
+  else if (analogRead(IR_sensor_right) < 500)//&& analogRead(IR_sensor_left) > 500) // right side sees the hand and left side no
   {
     controlDirection(4); //rotate right
     graphic_code_HF = 50; //happy face graphic
     
   }
 
-  while (analogRead(IR_sensor_right) > 500 && analogRead(IR_sensor_left) < 500) // left side sees the hand and right side no
+  else if (/*analogRead(IR_sensor_right) > 500 && */analogRead(IR_sensor_left) < 500) // left side sees the hand and right side no
   {
     controlDirection(6); //rotate left
     graphic_code_HF = 50; //happy face graphic
     
   }
 
-  if (analogRead(IR_sensor_right) > 500 && analogRead(IR_sensor_left) > 500 && digitalRead(IR_sensor_middle) == 0) // none of the sensors are seeing the hand
+  else if (analogRead(IR_sensor_right) > 500 && analogRead(IR_sensor_left) > 500 && digitalRead(IR_sensor_middle) == 0) // none of the sensors are seeing the hand
   {
     controlDirection(0); //stop
     graphic_code_HF = 60; //sad face graphic
     
   }
-  if (digitalRead(IR_sensor_middle) == 1) // middle sensor sees the hand 
+  else if (digitalRead(IR_sensor_middle) == 1) // middle sensor sees the hand 
   {
     controlDirection(1); 
     graphic_code_HF = 50; //happy face graphic

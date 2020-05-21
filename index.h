@@ -201,10 +201,10 @@ const char PAGINA[] = R"rawliteral(
       Line follower
     </div><!--
     --><div id="mode_button_2" class="mode_button" onclick="button_press(2)">
-      Hand follower
+      Obstacle avoider
     </div><!--
     --><div id="mode_button_3" class="mode_button" onclick="button_press(3)">
-      Obstacle avoider
+      Hand follower
     </div><!--
   --></div><!--
   --><div id="status_container" class="status_container"><!--
@@ -212,12 +212,14 @@ const char PAGINA[] = R"rawliteral(
         Status
         <br>
         <img src="https://i.imgur.com/aotmGEf.png" height="180px" width="180px" id="status_icon">
+         <br>
+        //<span id = "test">xxx</span>
     </div><!--
       --><div id="start_stop_container" class="start_stop_container"><!--
-        --><div id="start_button" class="start_button" onclick="">
+        --><div id="start_button" class="start_button" onclick="start_press()">
             START
           </div><!--
-        --><div id="stop_button" class="stop_button" onclick="window.alert(screen.width)">
+        --><div id="stop_button" class="stop_button" onclick="stop_press()">
             STOP
           </div><!--
       --></div><!--
@@ -226,7 +228,7 @@ const char PAGINA[] = R"rawliteral(
     Temperature / Humidity
   </div><!--
   --><script type="text/javascript">
-      var status_icon_happy = "happy https://i.imgur.com/sgtkAhv.png";
+      var status_icon_happy = "https://i.imgur.com/sgtkAhv.png";
       var status_icon_sad = "https://i.imgur.com/TEyTI63.png";
       var status_icon_up = "https://i.imgur.com/AbAQtAt.png";
       var status_icon_down = "https://i.imgur.com/v2LvgtS.png";
@@ -245,8 +247,10 @@ const char PAGINA[] = R"rawliteral(
       var mode_1_button = document.getElementById("mode_button_1");
       var mode_2_button = document.getElementById("mode_button_2");
       var mode_3_button = document.getElementById("mode_button_3");
+      var start_button_press = document.getElementById("start_button");
+      var stop_button_press = document.getElementById("stop_button");
 
-     
+     //var test_element = document.getElementById("test");
 
       function get_temp_humid(){
 
@@ -294,6 +298,7 @@ const char PAGINA[] = R"rawliteral(
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
            if (this.readyState == 4 && this.status == 200) {
+           // test_element.innerHTML = this.responseText;
             switch(this.responseText){
               case "10":
                 status_icon_element.src = status_icon_left;
@@ -330,6 +335,8 @@ const char PAGINA[] = R"rawliteral(
             mode_1_button.style.backgroundColor = "rgba(120,120,120,1)"; //grey
             mode_2_button.style.backgroundColor = "rgba(120,120,120,1)";
             mode_3_button.style.backgroundColor = "rgba(120,120,120,1)";
+            stop_button_press.style.backgroundColor = "red";
+            start_button_press.style.backgroundColor = "rgba(120,160,120,1)";
             
         switch(m){
           case 1:
@@ -345,6 +352,30 @@ const char PAGINA[] = R"rawliteral(
         //send new mode to Wemos
         var xhttp = new XMLHttpRequest();
        xhttp.open("GET", "/set_mode?m=" + m, true);
+       xhttp.send();
+      }
+
+      //15.05
+
+      function start_press()
+      {
+        //change color to green
+        start_button_press.style.backgroundColor = "green";
+        stop_button_press.style.backgroundColor = "rgba(160,120,120,1)";
+        //send value 100 to Wemos - value for start pressed
+        var xhttp = new XMLHttpRequest();
+       xhttp.open("GET", "/start_set", true);
+       xhttp.send();
+      }
+
+      function stop_press()
+      {
+        //change color to green
+        stop_button_press.style.backgroundColor = "red";
+        start_button_press.style.backgroundColor = "rgba(120,160,120,1)";
+        //send value 200 to Wemos - value for stop pressed
+        var xhttp = new XMLHttpRequest();
+       xhttp.open("GET", "/stop_set" , true);
        xhttp.send();
       }
 
