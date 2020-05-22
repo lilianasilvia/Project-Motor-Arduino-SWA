@@ -30,29 +30,14 @@ void loop() {
   if(received_current_mode_wemos == 1 && start_active == 100)
   {
     line_follow(); //mode 1
-    
-    response[3] = 1; //send feedback to wemos that the mode was updated 
-    response[1] = graphic_code_LF; //send to wemos the graphic code to show on matrix led and page
-    response[0] = 0; // sending 0 value to wemos will represent "ignore" value
-    response[2] = 0; // sending 0 value to wemos will represent "ignore" value
   }
   if(received_current_mode_wemos == 2 && start_active == 100)
   {
-    obstacle_avoid(); //mode 2
-
-    response[3] = 2; //send feedback to wemos that the mode was updated 
-    response[2] = graphic_code_OA; //send to wemos the graphic code to show on matrix led and page
-    response[0] = 0; // sending 0 value to wemos will represent "ignore" value
-    response[1] = 0; // sending 0 value to wemos will represent "ignore" value
+    obstacle_avoid(); //mode 2  
   }
   if(received_current_mode_wemos == 3 && start_active == 100)
   {
     hand_follower(); //mode 3
-
-    response[3] = 3; //send feedback to wemos that the mode was updated 
-    response[0] = graphic_code_HF; //send to wemos the graphic code to show on matrix led and page
-    response[1] = 0; // sending 0 value to wemos will represent "ignore" value
-    response[2] = 0; // sending 0 value to wemos will represent "ignore" value
   }
 
   if(start_active == 0)
@@ -93,9 +78,32 @@ void espWifiReceiveEvent(int count)
 
 void espWifiRequestEvent()
 {
+  if(received_current_mode_wemos == 1 )
+  {  
+    response[3] = 1; //send feedback to wemos that the mode was updated 
+    response[1] = graphic_code_LF; //send to wemos the graphic code to show on matrix led and page
+    response[0] = 0; // sending 0 value to wemos will represent "ignore" value
+    response[2] = 0; // sending 0 value to wemos will represent "ignore" value
+  }
+  
+  if(received_current_mode_wemos == 2 )
+  {
+    response[3] = 2; //send feedback to wemos that the mode was updated 
+    response[2] = graphic_code_OA; //send to wemos the graphic code to show on matrix led and page
+    response[0] = 0; // sending 0 value to wemos will represent "ignore" value
+    response[1] = 0; // sending 0 value to wemos will represent "ignore" value
+  }
+  
+  if(received_current_mode_wemos == 3 )
+  {
+    response[3] = 3; //send feedback to wemos that the mode was updated 
+    response[0] = graphic_code_HF; //send to wemos the graphic code to show on matrix led and page
+    response[1] = 0; // sending 0 value to wemos will represent "ignore" value
+    response[2] = 0; // sending 0 value to wemos will represent "ignore" value
+  }
+  
   for(int i = 0; i < 4; i++)
   {
     Wire.write(response[i]);
   }
-  
 }

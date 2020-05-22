@@ -213,7 +213,7 @@ const char PAGINA[] = R"rawliteral(
         <br>
         <img src="https://i.imgur.com/aotmGEf.png" height="180px" width="180px" id="status_icon">
          <br>
-        //<span id = "test">xxx</span>
+        
     </div><!--
       --><div id="start_stop_container" class="start_stop_container"><!--
         --><div id="start_button" class="start_button" onclick="start_press()">
